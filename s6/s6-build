@@ -13,12 +13,14 @@ s6_FILE="$s6_VERSION.tar.gz"
 s6_URL="http://www.skarnet.org/software/s6/$s6_FILE"
 
 # download s6 into packages
-curl -o /package/$s6_FILE $s6_URL
+if [ ! -e /package/$s6_FILE ]
+then
+    curl -o /package/$s6_FILE $s6_URL
+fi
 
 # unzip the s6 package
 cd /package
 tar -zxpvf $s6_FILE
-rm $s6_FILE
 
 # setup the configuration
 cd admin/$s6_VERSION
@@ -36,5 +38,18 @@ make
 sudo make install
 make clean
 
+if [ ! -e /vagrant/dist/ ]
+then
+    mkdir /vagrant/dist/
+fi
+
 # gzip the files ready to go
 tar -zcf /vagrant/dist/$s6_VERSION-static.tar.gz -C /package/admin/s6/command .
+
+# also copy them across into /vagrant/ubuntu-base/root/usr/bin
+if [ -e /vagrant/ubuntu-base/root/usr/bin ]
+then
+    rm -rf /vagrant/ubuntu-base/root/usr
+fi
+mkdir -p /vagrant/ubuntu-base/root/usr/bin
+cp /package/admin/s6/command/* /vagrant/ubuntu-base/root/usr/bin
