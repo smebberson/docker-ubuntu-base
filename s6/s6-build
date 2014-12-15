@@ -30,6 +30,7 @@ echo musl-gcc -static > conf-compile/conf-ld
 echo musl-gcc > conf-compile/conf-dynld
 echo /usr/bin > conf-compile/conf-install-command
 touch conf-compile/flag-allstatic
+rm -f conf-compile/flag-slashpackage
 package/compile
 rm -f package/library.so.exported
 
