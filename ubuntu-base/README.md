@@ -8,7 +8,7 @@ Process management
 
 This image includes [s6](s6) ([built statically][s6-built-statically]), to make it super simple to start multiple process and manage them correctly.
 
-_**Aren't you only supposed to run one process per container?**_ Well yes and no... the following are good examples of when multiple processes within one container might necessary:
+_**Aren't you only supposed to run one process per container?**_ Well yes and no... the following are good examples of when multiple processes within one container might be necessary:
 
 - automatically updating [nginx][nginx] proxy settings when a down-stream application server (nodejs, php, etc) restarts (and the IP changes)
 - automatically updating [HAProxy][haproxy] configuration to load balance to a group of down-stream application servers
