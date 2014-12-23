@@ -1,0 +1,1 @@
+docker build -t smebberson/nginx-nodejs /vagrant/nginx-nodejs
