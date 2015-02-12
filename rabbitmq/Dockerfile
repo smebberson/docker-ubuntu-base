@@ -3,6 +3,9 @@
 FROM smebberson/ubuntu-base
 MAINTAINER Scott Mebberson <scott@scottmebberson.com>
 
+# Add the files
+ADD root /
+
 # Install RabbitMQ
 RUN \
   curl https://www.rabbitmq.com/rabbitmq-signing-key-public.asc | apt-key add - && \
@@ -22,9 +25,6 @@ VOLUME ["/data/log", "/data/mnesia"]
 
 # Define working directory.
 WORKDIR /data
-
-# Add the files
-ADD root /
 
 # Expose ports for AMQP protocol and rabbitmq management plugin respectively
 EXPOSE 5672 15672
