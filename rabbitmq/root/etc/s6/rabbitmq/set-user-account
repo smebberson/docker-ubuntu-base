@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+if [ ${RABBITMQ_USER_SET} ]; then
+	echo ">>> RabbitMQ user account already set!"
+  exit 0
+fi
+
+PASS=${RABBITMQ_PASS}
+USER=${RABBITMQ_USER}
+
+if [ !$USER -o !$PASS ]; then
+	echo ">>> Environment variables RABBITMQ_USER and RABBITMQ_PASS is not defined!"
+	echo ">>> RabbitMQ will use default user settings."
+	exit 0
+fi
+
+cat > /etc/rabbitmq/rabbitmq.config <<EOF
+[
+	{rabbit, [{default_user, <<"$USER">>},{default_pass, <<"$PASS">>},{tcp_listeners, [{"0.0.0.0", 5672}]}]}
+].
+EOF
+
+echo ">>> Set RabbitMQ default user account: username: " + $USER + ", password: " + $PASS
+
+echo "export RABBITMQ_USER_SET=true" > /etc/profile.d/rabbit.sh

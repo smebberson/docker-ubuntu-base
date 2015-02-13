@@ -3,9 +3,6 @@
 FROM smebberson/ubuntu-base
 MAINTAINER Scott Mebberson <scott@scottmebberson.com>
 
-# Add the files
-ADD root /
-
 # Install RabbitMQ
 RUN \
   curl https://www.rabbitmq.com/rabbitmq-signing-key-public.asc | apt-key add - && \
@@ -13,8 +10,7 @@ RUN \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install -y rabbitmq-server && \
   rm -rf /var/lib/apt/lists/* && \
-  rabbitmq-plugins enable rabbitmq_management && \
-  echo "[{rabbit, [{loopback_users, []}]}]." > /etc/rabbitmq/rabbitmq.config
+  rabbitmq-plugins enable rabbitmq_management --offline
 
 # Define environment variables.
 ENV RABBITMQ_LOG_BASE /data/log
@@ -25,6 +21,9 @@ VOLUME ["/data/log", "/data/mnesia"]
 
 # Define working directory.
 WORKDIR /data
+
+# Add the files
+ADD root /
 
 # Expose ports for AMQP protocol and rabbitmq management plugin respectively
 EXPOSE 5672 15672
