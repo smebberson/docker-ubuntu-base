@@ -35,9 +35,11 @@ RUN chown -R rabbitmq:rabbitmq /data
 
 ```
 
+**Please note:** If ```RABBITMQ_USER``` and ```RABBITMQ_PASS``` environment variable is not set, it will use the default RabbitMQ user logins which use ```guest``` as the username and password.
+
 ### RabbitMQ Management Plugin
 
-You can access the mangement UI admin via http://server-name:15672
+You can access the mangement UI admin via http://server-name:15672. See above for login details.
 For more info see (RabbitMQ documentations)[https://www.rabbitmq.com/management.html].
 
 [s6]: http://www.skarnet.org/software/s6/
