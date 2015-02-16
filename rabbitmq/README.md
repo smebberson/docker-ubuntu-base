@@ -42,4 +42,18 @@ RUN chown -R rabbitmq:rabbitmq /data
 You can access the mangement UI admin via http://server-name:15672. See above for login details.
 For more info see (RabbitMQ documentations)[https://www.rabbitmq.com/management.html].
 
+### Run RabbitMQ server
+
+You can start up your RabbitMQ server using the following command:
+
+```
+docker run -d -p 5672:5672 -p 15672:15672 smebberson/rabbitmq
+```
+
+### Run RabbitMQ server with persistent shared directories
+
+```
+docker run -d -p 5672:5672 -p 15672:15672 -v <log-dir>:/data/log -v <data-dir>:/data/mnesia smebberson/rabbitmq
+
+
 [s6]: http://www.skarnet.org/software/s6/
