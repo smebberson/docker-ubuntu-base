@@ -12,16 +12,6 @@ RUN \
   rm -rf /var/lib/apt/lists/* && \
   rabbitmq-plugins enable rabbitmq_management --offline
 
-# Define environment variables.
-ENV RABBITMQ_LOG_BASE /data/log
-ENV RABBITMQ_MNESIA_BASE /data/mnesia
-
-# Define mount points.
-VOLUME ["/data/log", "/data/mnesia"]
-
-# Define working directory.
-WORKDIR /data
-
 # Add the files
 ADD root /
 

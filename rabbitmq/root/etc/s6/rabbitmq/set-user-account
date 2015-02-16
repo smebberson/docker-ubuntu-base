@@ -25,4 +25,4 @@ cat > /etc/rabbitmq/rabbitmq.config <<EOF
 ].
 EOF
 
-echo ">>> Set RabbitMQ default user account: username: $USER password: $PASS"
+echo ">>> RabbitMQ will use customised user settings."
