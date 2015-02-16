@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# if nginx dies, this will force the entire container to stop
+s6-svscanctl -t /etc/s6
