@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# check if RABBITMQ_USER_SET is defined
+if [ -f /.rabbitmq-user-set ]; then
+	echo ">>> RabbitMQ user account already set!"
+  exit 0
+fi
+
+# create file so that it can be used to skip the code below next time the rabbitmq server restarts
+touch /.rabbitmq-user-set
+
+PASS=${RABBITMQ_PASS}
+USER=${RABBITMQ_USER}
+
+if [ -z "$USER" -o -z "$PASS" ]; then
+	echo ">>> Environment variables RABBITMQ_USER and RABBITMQ_PASS is not defined!"
+	echo ">>> RabbitMQ will use default user settings."
+	echo "[{rabbit, [{loopback_users, []}]}]." > /etc/rabbitmq/rabbitmq.config
+	exit 0
+fi
+
+cat > /etc/rabbitmq/rabbitmq.config <<EOF
+[
+	{rabbit, [{default_user, <<"$USER">>},{default_pass, <<"$PASS">>},{tcp_listeners, [{"0.0.0.0", 5672}]}]}
+].
+EOF
+
+echo ">>> RabbitMQ will use customised user settings."
