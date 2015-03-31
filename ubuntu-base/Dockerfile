@@ -5,9 +5,7 @@ MAINTAINER Scott Mebberson <scott@scottmebberson.com>
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
-    apt-get install -y build-essential && \
-    apt-get install -y software-properties-common && \
-    apt-get install -y curl rsync && \
+    apt-get install -y build-essential software-properties-common curl rsync dnsutils && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
