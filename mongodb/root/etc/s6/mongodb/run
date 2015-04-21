@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# take ownership of the data directory
-chown -R mongodb /data/db
-
 # disable hugepage
 if test -f /sys/kernel/mm/transparent_hugepage/khugepaged/defrag && test -w /sys/kernel/mm/transparent_hugepage/khugepaged/defrag; then
   echo 0 > /sys/kernel/mm/transparent_hugepage/khugepaged/defrag
