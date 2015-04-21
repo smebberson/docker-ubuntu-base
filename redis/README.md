@@ -31,6 +31,13 @@ Usage
 
 To use this image include `FROM smebberson/redis` at the top of your `Dockerfile`, or simply `docker run --name redis smebberson/redis`.
 
+### Disable hugepage
+
+By default, you'll probably notice redis output a warning about Transparent Huge Pages when it starts up. The s6 startup script has support to disable this, but you need to run the container in privileged mode:
+
+```
+docker run --privileged --name redis smebberson/redis`
+
 Customisation
 -------------
 
@@ -40,3 +47,5 @@ This container comes setup as follows:
 - if redis dies, it will automatically be restarted
 
 To customise the start up process for redis, during your `Dockerfile` build process, copy across a file to `/etc/s6/redis/run`. This file will be used to start `redis`. Within it, start `redis` after performing any setup steps as required.
+
+To customise the redis configuration replace the ```/etc/redis/local.conf``` in your ```Dockerfile```.
