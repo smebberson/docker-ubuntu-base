@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ -z ${TUTUM_SERVICE_HOSTNAME+x} ]; then
+        BIND="$(getent hosts $HOSTNAME | awk '{print $1}')"
+else
+        BIND="$(getent hosts $TUTUM_SERVICE_HOSTNAME | awk '{print $1}')"
+fi
+
+exec consul agent -config-dir /etc/consul.d/bootstrap -bind $BIND;

@@ -1,0 +1,6 @@
+{
+    "bootstrap_expect": 1,
+    "server": true,
+    "node_name": "agent-server",
+    "data_dir": "/data"
+}
