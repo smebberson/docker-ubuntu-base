@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
-if [ -z ${TUTUM_SERVICE_HOSTNAME+x} ]; then
-        BIND="$(getent hosts $HOSTNAME | awk '{print $1}')"
-else
-        BIND="$(getent hosts $TUTUM_SERVICE_HOSTNAME | awk '{print $1}')"
-fi
+# Bind to the external (LAN) IP
+BIND="$(getent hosts $HOSTNAME | awk '{print $1}')"
 
 exec consul agent -config-dir /etc/consul.d/bootstrap -bind $BIND;

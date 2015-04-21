@@ -16,20 +16,25 @@ Well yes and no... the following are good examples of when multiple processes wi
 - running a logging daemon to centralize log management (i.e. [logentries][logentries], [loggly][loggly], [logstash][logstash])
 - when you need to run a script on application server crash (to tidy something up), as the standard [Docker container restart policies][drsp] won't provide this
 
-[s6]: http://www.skarnet.org/software/s6/
-[s6-built-statically]: https://github.com/smebberson/docker-ubuntu-base/blob/master/s6/s6-build
-[logentries]: https://logentries.com/
-[loggly]: https://www.loggly.com/
-[logstash]: http://logstash.net/
-[drsp]: https://docs.docker.com/reference/commandline/cli/#restart-policies
-[nginx]: http://nginx.org/
-[haproxy]: http://www.haproxy.org/
-[consul]: https://www.consul.io/
-
 Usage
 -----
 
 To use this image include `FROM smebberson/consul` at the top of your `Dockerfile`, or simply `docker run --name consul smebberson/consul`.
+
+By default, Consul has been configured with:
+
+```
+{
+    "bootstrap_expect": 1,
+    "server": true,
+    "node_name": "agent-bootstrapped",
+    "data_dir": "/data"
+}
+```
+
+This setup serves the purpose of a single Consul agent running on a host, mainly for testing. This isn't the recommended scenario, with 3 to 5 total servers per data centre being preferred. However, you can easily customise this by providing your own `config.json` file as discussed below.
+
+Although easily customisable, this image has been designed to run Consul in server mode (without the web ui). If you'd like an image with Consul's web ui, refer to [smebberson/consul-ui][consului]. If you'd like an image purpose-built to be run as an [Consul agent][consulagent].
 
 Customisation
 -------------
@@ -44,3 +49,15 @@ All configuration has been defined in the `root/etc/consul.d/bootstrap/config.js
 To customise configuration for `consul`, replace the file at `root/etc/consul.d/bootstrap/config.json` with your own configuration.
 
 To customise the start script for `consul`, replace the file at `root/etc/s6/consul/run` with your own start script.
+
+[s6]: http://www.skarnet.org/software/s6/
+[s6-built-statically]: https://github.com/smebberson/docker-ubuntu-base/blob/master/s6/s6-build
+[logentries]: https://logentries.com/
+[loggly]: https://www.loggly.com/
+[logstash]: http://logstash.net/
+[drsp]: https://docs.docker.com/reference/commandline/cli/#restart-policies
+[nginx]: http://nginx.org/
+[haproxy]: http://www.haproxy.org/
+[consul]: https://www.consul.io/
+[consului]: https://github.com/smebberson/docker-ubuntu-base/tree/master/consul-ui
+[consulagent]: https://github.com/smebberson/docker-ubuntu-base/tree/master/consul-agent
