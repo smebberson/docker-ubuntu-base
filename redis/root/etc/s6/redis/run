@@ -11,4 +11,5 @@ if test -f /sys/kernel/mm/transparent_hugepage/enabled && test -w /sys/kernel/mm
   echo never > /sys/kernel/mm/transparent_hugepage/enabled
 fi
 
-exec redis-server /etc/redis/redis.conf;
+# run redis-server as redis user
+exec s6-setuidgid redis redis-server /etc/redis/redis.conf;
