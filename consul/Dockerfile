@@ -10,12 +10,14 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+ENV CONSUL_VERSION 0.5.0
+
 # Download and install Consul
-RUN curl -sSLO https://dl.bintray.com/mitchellh/consul/0.5.0_linux_amd64.zip && \
-    unzip 0.5.0_linux_amd64.zip && \
+RUN curl -sSLO https://dl.bintray.com/mitchellh/consul/${CONSUL_VERSION}_linux_amd64.zip && \
+    unzip ${CONSUL_VERSION}_linux_amd64.zip && \
     chmod +x consul && \
     mv consul /usr/local/bin/consul && \
-    rm 0.5.0_linux_amd64.zip && \
+    rm ${CONSUL_VERSION}_linux_amd64.zip && \
     groupadd -r consul && \
     useradd -r -g consul consul && \
     mkdir -p /data && \
