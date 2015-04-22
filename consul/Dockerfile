@@ -16,7 +16,10 @@ RUN curl -sSLO https://dl.bintray.com/mitchellh/consul/0.5.0_linux_amd64.zip && 
     chmod +x consul && \
     mv consul /usr/local/bin/consul && \
     rm 0.5.0_linux_amd64.zip && \
-    mkdir /data
+    groupadd -r consul && \
+    useradd -r -g consul consul && \
+    mkdir -p /data && \
+    chown -R consul:consul /data
 
 # Add the files
 ADD root /
