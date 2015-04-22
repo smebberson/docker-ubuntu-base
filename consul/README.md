@@ -3,7 +3,7 @@ Consul
 
 An image for using [consul][Consul] within Docker containers.
 
-**_Yet another container for running MongoDB?_**
+**_Yet another container for running Consul?_**
 
 Yes, as this one is built from my [Ubuntu-based Docker image](https://registry.hub.docker.com/u/smebberson/ubuntu-base/) that contains [s6][s6] for process management.
 
